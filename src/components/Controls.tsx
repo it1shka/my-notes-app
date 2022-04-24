@@ -1,10 +1,23 @@
+import { useDispatch } from "react-redux"
 import styled from "styled-components"
+import { RootDispatch } from "../store"
+import { decreaseScale, increaseScale } from "../store/slices/scale"
 
 const Controls = () => {
+  const dispatch = useDispatch<RootDispatch>()
+
+  const inc = () => {
+    dispatch(increaseScale())
+  }
+  
+  const dec = () => {
+    dispatch(decreaseScale())
+  }
+
   return (
     <ControlsContainer>
-      <FancyButton>+</FancyButton>
-      <FancyButton>-</FancyButton>
+      <FancyButton onClick={inc}>+</FancyButton>
+      <FancyButton onClick={dec}>-</FancyButton>
     </ControlsContainer>
   )
 }

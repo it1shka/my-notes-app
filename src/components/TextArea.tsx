@@ -1,10 +1,17 @@
+import { useSelector } from "react-redux"
 import styled from "styled-components"
+import { RootState } from "../store"
 import Controls from "./Controls"
 
 const TextArea = () => {
+  const scale = useSelector((state: RootState) => {
+    return state.scale.value
+  })
+
   return (
     <StyledTextAreaContainer>
       <StyledTextarea
+        scale={scale}
         placeholder="Type your note here..."
       ></StyledTextarea>
       <Controls />
@@ -18,7 +25,7 @@ const StyledTextAreaContainer = styled.div`
   position: relative;
 `
 
-const StyledTextarea = styled.textarea`
+const StyledTextarea = styled.textarea<{scale: number}>`
   width: 100%;
   height: 100%;
 
@@ -29,7 +36,7 @@ const StyledTextarea = styled.textarea`
   resize: none;
   outline: none;
 
-  font-size: 1.5em;
+  font-size: ${({scale}) => scale}em;
   color: #004900;
   scrollbar-width: none;
 `
