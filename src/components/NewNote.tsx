@@ -33,10 +33,19 @@ const StyledButton = styled.button`
   background-color: white;
   color: darkgreen;
 
-  transition: 0.1s all 0s;
+  /* transition: 0.1s all 0s;
   &:hover {
     background-color: darkgreen;
     color: white;
+  } */
+
+  transition: 0.1s all 0s;
+  &:hover {
+    border-radius: 15px;
+    border: 1px solid darkgreen;
+    margin: 0.1em;
+    margin-top: 0.25em;
+    box-shadow: lightgreen 0px 0px 4px;
   }
 `
 
