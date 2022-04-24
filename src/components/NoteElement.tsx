@@ -60,6 +60,7 @@ const SmallButton = styled.button<{color: string}>`
   border: none;
   padding: 0.2em;
   color: white;
+  cursor: pointer;
   background-color: ${({color}) => color};
 `
 
@@ -75,7 +76,7 @@ const NoteContainer = styled.div<{selected: boolean}>`
   border-bottom: 1px solid ${({selected}) => selected ? 'white' : 'darkgreen'};
   background-color: white;
   color: darkgreen;
-  cursor: pointer;
+  cursor: ${({selected}) => selected ? 'default' : 'pointer'};
 
   transition: 0.1s all 0s;
   ${({selected}) => selected && css`
