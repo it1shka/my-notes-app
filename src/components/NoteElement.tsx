@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled, { css } from "styled-components"
 import { RootDispatch, RootState } from "../store"
-import { Note } from "../store/slices/notes"
+import { Note, popNote } from "../store/slices/notes"
 import { setPointer } from "../store/slices/pointer"
 
 const formatStamp = (n: number) => {
@@ -25,19 +25,54 @@ const NoteElement = ({title, createdAt}: Note) => {
     }
   }
 
+  const handleDelete = () => {
+    if(isSelected) {
+      dispatch(setPointer(null))
+    }
+    dispatch(popNote(createdAt))
+  }
+
   return (
     <NoteContainer onClick={handleChoose} 
       selected={isSelected}>
-      <p>{title}</p>
-      <small>{formatStamp(createdAt)}</small>
+      <Block style={{padding: '0.5em 1em'}}>
+        <p>{title}</p>
+        {/* <small>{formatStamp(createdAt)}</small> */}
+      </Block>
+      {isSelected && (
+      <Block>
+        <SmallButton color='#857c00'>
+          Rename
+        </SmallButton>
+        <SmallButton 
+          onClick={handleDelete}
+          color='#8a2e00'>
+          Delete
+        </SmallButton>
+      </Block>
+      )}
     </NoteContainer>
   )
 }
 
+const SmallButton = styled.button<{color: string}>`
+  flex: 1;
+  border: none;
+  padding: 0.2em;
+  color: white;
+  background-color: ${({color}) => color};
+`
+
+const Block = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`
+
 const NoteContainer = styled.div<{selected: boolean}>`
   font-size: 1.5em;
-  padding: 0.5em 1em;
-  border-bottom: 1px solid darkgreen;
+  border-bottom: 1px solid ${({selected}) => selected ? 'white' : 'darkgreen'};
   background-color: white;
   color: darkgreen;
   cursor: pointer;
@@ -47,11 +82,6 @@ const NoteContainer = styled.div<{selected: boolean}>`
     background-color: darkgreen;
     color: white;
   `}
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 `
 
 export default NoteElement
