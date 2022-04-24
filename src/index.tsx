@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: monospace;
-    font-size: calc(0.75em + 0.5vw);
+    font-size: calc(0.5em + 0.5vw);
     @media screen and (min-width: 50em) {
       font-size: 1.1em;
     }
