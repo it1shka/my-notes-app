@@ -15,6 +15,8 @@ const SidePanelContainer = styled.div`
 
   background-color: white;
   border-right: 1px solid darkgreen;
+
+  
   
 `
 

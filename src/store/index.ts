@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import scaleReducer from './slices/scale'
+import notesReducer from './slices/notes'
+import pointerReducer from './slices/pointer'
 
 const store = configureStore({
   reducer: {
-    scale: scaleReducer
+    scale: scaleReducer,
+    notes: notesReducer,
+    pointer: pointerReducer
   }
 })
 
