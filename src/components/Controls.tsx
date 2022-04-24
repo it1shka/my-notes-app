@@ -38,18 +38,18 @@ const Controls = () => {
   )
 }
 
-const FancyButton = styled.button<{color?: string}>`
+const FancyButton = styled.button`
   font-size: 1em;
   width: 40px; height: 40px;;
 
-  border: 2px solid ${({color}) => color ?? 'darkgreen'};
+  border: 2px solid darkgreen;
   border-radius: 100%;
 
   background-color: white;
-  color: ${({color}) => color ?? 'darkgreen'};
+  color: darkgreen;
   transition: 0.1s all 0s;
   &:hover {
-    background-color: ${({color}) => color ?? 'darkgreen'};
+    background-color: darkgreen;
     color: white;
   }
 `

@@ -1,9 +1,13 @@
 import styled from "styled-components"
+import NewNote from "./NewNote"
 
 const SidePanel = () => {
+  
+
   return (
     <SidePanelContainer>
 
+      <NewNote />
     </SidePanelContainer>
   )
 }
@@ -16,7 +20,8 @@ const SidePanelContainer = styled.div`
   background-color: white;
   border-right: 1px solid darkgreen;
 
-  
+  display: flex;
+  flex-direction: column;
   
 `
 
