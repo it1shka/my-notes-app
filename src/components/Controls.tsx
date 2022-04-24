@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import styled from "styled-components"
 import { RootDispatch } from "../store"
@@ -14,10 +15,25 @@ const Controls = () => {
     dispatch(decreaseScale())
   }
 
+  useEffect(() => {
+    const globalScaleHandler = ({ctrlKey,key,preventDefault}: KeyboardEvent) => {
+      if(!ctrlKey) return
+      if(key === ',') {
+        dec()
+      } else if(key === '.') {
+        inc()
+      }
+    }
+    window.addEventListener('keydown', globalScaleHandler)
+    return () => {
+      window.removeEventListener('keydown', globalScaleHandler)
+    }
+  }, [])
+
   return (
     <ControlsContainer>
-      <FancyButton onClick={inc}>+</FancyButton>
       <FancyButton onClick={dec}>-</FancyButton>
+      <FancyButton onClick={inc}>+</FancyButton>
     </ControlsContainer>
   )
 }
