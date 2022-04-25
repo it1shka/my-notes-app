@@ -30,6 +30,7 @@ const TextArea = () => {
   return (
     <StyledTextAreaContainer>
       <StyledTextarea
+        spellCheck="false"
         scale={scale}
         placeholder="Type your note here..."
         disabled={!current}

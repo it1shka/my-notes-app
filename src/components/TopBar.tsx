@@ -1,16 +1,28 @@
+import { useSelector } from "react-redux"
 import styled from "styled-components"
+import { persistState } from "../localstorage"
+import { RootState } from "../store"
 
 const TopBar = () => {
+
+  const handleClose = () => {
+    window.close()
+  }
+
+  const state = useSelector((state: RootState) => state)
+  const handleSave = () => {
+    persistState(state)
+  }
 
   return (
     <TopBarContainer>
       <h1>My Notes</h1>
       <Buttons>
-        <FancyButton>
+        <FancyButton onClick={handleSave}>
           Save
         </FancyButton>
         <FancyButton
-          onClick={() => window.close()} 
+          onClick={handleClose} 
           color="darkred">
           Quit
         </FancyButton>

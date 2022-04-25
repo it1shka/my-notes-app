@@ -59,7 +59,9 @@ const NoteElement = ({createdAt}: {createdAt: number}) => {
       <Block style={{padding: '0.5em 1em'}}>
         {renaming ? (
           <form onSubmit={submitTitleChange}>
-            <StyledInput autoFocus
+            <StyledInput 
+              autoFocus
+              spellCheck="false"
               value={title} 
               onChange={handleTitleChange}
             />
