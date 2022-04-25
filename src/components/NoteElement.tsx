@@ -1,23 +1,28 @@
-import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled, { css } from "styled-components"
 import { RootDispatch, RootState } from "../store"
-import { Note, popNote } from "../store/slices/notes"
+import { popNote, setNoteTitle } from "../store/slices/notes"
 import { setPointer } from "../store/slices/pointer"
+import { ChangeEvent, useState, MouseEvent, useEffect, FormEvent } from 'react'
 
-const formatStamp = (n: number) => {
-  return new Date(n).toLocaleDateString('en-US')
-}
+const NoteElement = ({createdAt}: {createdAt: number}) => {
+  const [renaming, setRenaming] = useState(false)
+  const toggleRenaming = (event: MouseEvent) => {
+    event.stopPropagation()
+    setRenaming(!renaming)
+  }
 
-const NoteElement = ({title, createdAt}: Note) => {
   const dispatch = useDispatch<RootDispatch>()
-
   const pointer = useSelector((state: RootState) => {
     return state.pointer.value
   })
   const isSelected = createdAt === pointer
+  useEffect(() => {
+    setRenaming(false)
+  }, [isSelected])
 
   const handleChoose = () => {
+    if(renaming) return
     if(isSelected) {
       dispatch(setPointer(null))
     } else {
@@ -32,16 +37,42 @@ const NoteElement = ({title, createdAt}: Note) => {
     dispatch(popNote(createdAt))
   }
 
+  const title = useSelector((state: RootState) => {
+    const notes = state.notes
+    const elem = notes.find(note => note.createdAt === createdAt)
+    return elem?.title ?? 'Unknown note'
+  })
+
+  const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    dispatch(setNoteTitle({id: createdAt, title: value}))
+  }
+
+  const submitTitleChange = (event: FormEvent) => {
+    event.preventDefault()
+    setRenaming(false)
+  }
+
   return (
     <NoteContainer onClick={handleChoose} 
       selected={isSelected}>
       <Block style={{padding: '0.5em 1em'}}>
-        <p>{title}</p>
-        {/* <small>{formatStamp(createdAt)}</small> */}
+        {renaming ? (
+          <form onSubmit={submitTitleChange}>
+            <StyledInput autoFocus
+              value={title} 
+              onChange={handleTitleChange}
+            />
+          </form>
+        ) : (
+          <p>{title}</p>
+        )}
       </Block>
       {isSelected && (
       <Block>
-        <SmallButton color='#857c00'>
+        <SmallButton
+          onClick={toggleRenaming} 
+          color='#857c00'>
           Rename
         </SmallButton>
         <SmallButton 
@@ -54,6 +85,15 @@ const NoteElement = ({title, createdAt}: Note) => {
     </NoteContainer>
   )
 }
+
+const StyledInput = styled.input`
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+`
 
 const SmallButton = styled.button<{color: string}>`
   flex: 1;
@@ -72,6 +112,7 @@ const Block = styled.div`
 `
 
 const NoteContainer = styled.div<{selected: boolean}>`
+  user-select: none;
   font-size: 1.5em;
   border-bottom: 1px solid ${({selected}) => selected ? 'white' : 'darkgreen'};
   background-color: white;

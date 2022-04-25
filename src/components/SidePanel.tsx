@@ -11,8 +11,8 @@ const SidePanel = () => {
 
   return (
     <SidePanelContainer>
-      {notes.map((note, idx) => {
-        return <NoteElement key={idx} {...note}/>
+      {notes.map(({createdAt: id}, idx) => {
+        return <NoteElement key={idx} createdAt={id}/>
       })}
       <NewNote />
     </SidePanelContainer>
