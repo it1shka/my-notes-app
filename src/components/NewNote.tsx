@@ -19,28 +19,28 @@ const NewNote = () => {
   }
 
   return (
-    <StyledButton
-      onClick={newNote}
-    >Add new!</StyledButton>
+    <OuterButton onClick={newNote}>
+      <InnerButton>
+        Add new!
+      </InnerButton>
+    </OuterButton>
   )
 }
 
-const StyledButton = styled.button`
-  font-size: 1.2em;
+const InnerButton = styled.div`
+  font-size: 1.5em;
   padding: 0.2em;
   border: none;
   border-bottom: 1px solid darkgreen;
   background-color: white;
   color: darkgreen;
-
-  /* transition: 0.1s all 0s;
-  &:hover {
-    background-color: darkgreen;
-    color: white;
-  } */
-
   transition: 0.1s all 0s;
-  &:hover {
+`
+
+const OuterButton = styled.button`
+  background-color: transparent;
+  border: none;
+  &:hover ${InnerButton} {
     border-radius: 15px;
     border: 1px solid darkgreen;
     margin: 0.1em;

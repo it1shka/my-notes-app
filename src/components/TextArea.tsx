@@ -8,6 +8,8 @@ const TextArea = () => {
     return state.scale.value
   })
 
+  
+
   return (
     <StyledTextAreaContainer>
       <StyledTextarea
