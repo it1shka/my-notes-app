@@ -1,7 +1,5 @@
-import { useSelector } from "react-redux"
 import styled from "styled-components"
 import { persistState } from "../localstorage"
-import { RootState } from "../store"
 
 const TopBar = () => {
 
@@ -9,9 +7,8 @@ const TopBar = () => {
     window.close()
   }
 
-  const state = useSelector((state: RootState) => state)
   const handleSave = () => {
-    persistState(state)
+    persistState()
   }
 
   return (

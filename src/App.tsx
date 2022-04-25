@@ -1,9 +1,25 @@
+import { useEffect } from "react"
 import styled from "styled-components"
 import SidePanel from "./components/SidePanel"
 import TextArea from "./components/TextArea"
 import TopBar from "./components/TopBar"
+import { persistState } from "./localstorage"
 
 const App = () => {
+
+  useEffect(() => {
+    const saveHandler = (event: KeyboardEvent) => {
+      if(!(event.ctrlKey && event.key === 's')) return
+      event.preventDefault()
+      persistState()
+    }
+
+    window.addEventListener('keydown', saveHandler)
+    return () => {
+      window.removeEventListener('keydown', saveHandler)
+    }
+  }, [])
+
   return (
     <AppContainer>
       <TopBar />

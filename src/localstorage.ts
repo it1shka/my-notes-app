@@ -1,4 +1,4 @@
-import { RootState } from "./store";
+import store, { RootState } from "./store";
 
 export const STORAGE_KEY = 'it1shka/notes'
 
@@ -12,7 +12,9 @@ export function loadState(): RootState | undefined {
   }
 }
 
-export function persistState(state: RootState): void {
-  const data = JSON.stringify(state)
+export function persistState(): void {
+  const storedState = store.getState()
+  const data = JSON.stringify(storedState)
   window.localStorage.setItem(STORAGE_KEY, data)
+  alert('Saved!')
 }
