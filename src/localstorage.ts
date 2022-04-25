@@ -1,13 +1,13 @@
 import store, { RootState } from "./store";
 
-export const STORAGE_KEY = 'it1shka/notes'
-
 export function loadState(): RootState | undefined {
   try {
-    const data = window.localStorage.getItem(STORAGE_KEY)!
+    const data = window.localStorage.getItem('it1shka/notes')
+    // console.log(data)
     if(!data) return undefined
     return JSON.parse(data) as RootState 
-  } catch {
+  } catch(error) {
+    console.log(error)
     return undefined
   }
 }
@@ -15,6 +15,7 @@ export function loadState(): RootState | undefined {
 export function persistState(): void {
   const storedState = store.getState()
   const data = JSON.stringify(storedState)
-  window.localStorage.setItem(STORAGE_KEY, data)
+  // console.log(data)
+  window.localStorage.setItem('it1shka/notes', data)
   alert('Saved!')
 }
