@@ -9,7 +9,9 @@ const App = () => {
 
   useEffect(() => {
     const saveHandler = (event: KeyboardEvent) => {
-      if(!(event.ctrlKey && event.key === 's')) return
+      const {ctrlKey, key, keyCode} = event
+      if(!ctrlKey) return
+      if(!(key === 's' || keyCode === 83)) return
       event.preventDefault()
       persistState()
     }

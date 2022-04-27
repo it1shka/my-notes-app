@@ -16,11 +16,11 @@ const Controls = () => {
   }
 
   useEffect(() => {
-    const globalScaleHandler = ({ctrlKey,key,preventDefault}: KeyboardEvent) => {
+    const globalScaleHandler = ({ctrlKey,key,keyCode}: KeyboardEvent) => {
       if(!ctrlKey) return
-      if(key === ',') {
+      if(key === ',' || keyCode === 188) {
         dec()
-      } else if(key === '.') {
+      } else if(key === '.' || keyCode === 190) {
         inc()
       }
     }
